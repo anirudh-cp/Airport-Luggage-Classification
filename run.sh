@@ -1,0 +1,1 @@
+docker run -p 8501:8501 --name tf_airport_classify --mount type=bind,source=$(pwd)/exported_model/saved_model/,target=/models/saved_model -e MODEL_NAME=saved_model -t tensorflow/serving 

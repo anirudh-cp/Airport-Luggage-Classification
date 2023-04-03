@@ -16,11 +16,12 @@ for gpu in gpus:
     tf.config.experimental.set_memory_growth(gpu, True)
 
 # PROVIDE PATH TO IMAGE DIRECTORY
-IMAGE_PATHS = './Dataset/Test/1.jpeg'
+IMAGE_PATHS = './Dataset/Train/10.jpg'
 
 
 # PROVIDE PATH TO MODEL DIRECTORY
 PATH_TO_MODEL_DIR = './exported_model'
+MODEL_VERSION = '/1'
 
 # PROVIDE PATH TO LABEL MAP
 PATH_TO_LABELS = './Dataset/label_map.pbtxt'
@@ -34,7 +35,7 @@ import time
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as viz_utils
 
-PATH_TO_SAVED_MODEL = PATH_TO_MODEL_DIR + "/saved_model"
+PATH_TO_SAVED_MODEL = PATH_TO_MODEL_DIR + "/saved_model" + MODEL_VERSION
 
 print('Loading model...', end='')
 start_time = time.time()
@@ -101,6 +102,7 @@ viz_utils.visualize_boxes_and_labels_on_image_array(
 print('Done')
 # DISPLAYS OUTPUT IMAGE
 image_with_detections
+image_with_detections = cv2.resize(image_with_detections, (500, 500))
 cv2.imshow("Prediction", image_with_detections)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
