@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- load MUI -->
+    <link
+      href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+    <title>Airport Luggage Classifier</title>
+  </head>
+
+  <body>
+    <div class="mui-appbar">
+      <table width="100%">
+        <tr style="vertical-align: middle">
+          <td class="mui--appbar-height">
+            <div class="mui--text-headline" style="margin-left: 1em">
+              Airport Luggage Classifier
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- example content -->
+    <div class="mui-container">
+      <div class="mui-panel" style="margin-top: 7vh; text-align: center">
+        <div
+          class="mui--text-display3"
+          style="margin-bottom: 1em; margin-top: 10px"
+        >
+          Plan Ahead to Avoid Problems
+        </div>
+        <div class="mui--text-headline" style="margin-bottom: 2em">
+          Scan an item to understand if it belongs in carry-on baggage or
+          check-in baggage or if it is not permitted to avoid troubles at the
+          security checkin.
+        </div>
+
+        <form
+          class="mui-form--inline"
+          action="/"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="mui-textfield">
+            <input class="form-control" type="file" name="imagefile" />
+          </div>
+          <button
+            type="submit"
+            id="btnFetch"
+            class="mui-btn mui-btn--primary mui-btn--raised"
+          >
+            Submit Query
+          </button>
+        </form>
+
+        {% if image_class %}
+        <div class="mui--text-headline" style="margin: 2em">
+          Object is <b>{{image_class}}</b>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+
+  <script>
+    document.getElementById("btnFetch").addEventListener("click", function () {
+      document
+        .getElementById("btnFetch")
+        .setAttribute("textContent", "Loading...");
+    });
+  </script>
+</html>
