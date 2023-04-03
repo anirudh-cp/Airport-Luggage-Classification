@@ -1,0 +1,44 @@
+version: "3.7"
+services:
+  website:
+    container_name: website
+    restart: always
+    build:
+      context: ./website
+      dockerfile: Dockerfile
+    environment:
+      - FLASK_ENV=dev
+      - FLASK_APP=./website/app/main.py
+      - FLASK_RUN_HOST=0.0.0.0
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/website
+    depends_on:
+      - tf-serving
+    networks:
+      - ml_network
+
+
+  tf-serving:
+    image: tensorflow/serving
+    container_name: tf-serving
+    command:
+      - "--allow_version_labels_for_unavailable_models=true"
+      - "--model_config_file=/exported_model/tensorflow-serving.conf"
+    ports:
+      - "8501:8501"
+    volumes:
+      - "./exported_model/:/exported_model"
+    networks:
+      - ml_network
+
+volumes:
+  ml-db:
+    name: ml-db
+  tf_model_data:
+    driver: local
+
+networks:
+  ml_network:
+    driver: bridge

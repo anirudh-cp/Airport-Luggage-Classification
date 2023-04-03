@@ -32,7 +32,7 @@ def classify():
     headers = {"content-type": "application/json"}
     data = json.dumps({"signature_name": "serving_default", "instances": image_expanded.tolist()})
 
-    json_response = requests.post('http://localhost:8501/v1/models/saved_model:predict', data=data, headers=headers)
+    json_response = requests.post('http://tf-serving:8501/v1/models/saved_model:predict', data=data, headers=headers)
     predictions = json.loads(json_response.text)['predictions']
     
     predictions = json.loads(json_response.text)['predictions']

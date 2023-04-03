@@ -1,0 +1,6 @@
+Flask
+matplotlib
+numpy
+opencv-python-headless
+Pillow==9.5.0
+requests==2.28.1
